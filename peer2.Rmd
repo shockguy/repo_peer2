@@ -1,0 +1,37 @@
+---
+title: "Storm Data Impact Quicklook"
+author: "Sean Treadway"
+date: "June 21, 2015"
+output: html_document
+---
+# 
+
+First some housekeeping:  
+* Set a working directory   
+* Load necessary packages  
+```{r, echo=TRUE}
+setwd('~/data_analysis/repo/peer2/')
+
+library('base')
+library('methods')
+library('utils')
+library('graphics')
+library('bitops')
+library('rmarkdown')
+library('httr')
+library('RCurl')
+```
+
+Retreive storm data from online source, along with related documents.  These are downloaded to the working directory
+```{r, echo=T, cache=TRUE}
+datafile='./StormData.csv.bz2'
+download.file('https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2','./StormData.csv.bz2',method = 'curl')
+download.file('https://d396qusza40orc.cloudfront.net/repdata%2Fpeer2_doc%2Fpd01016005curr.pdf','./NWS_StormDataDocuments.pdf', method = 'curl')
+download.file('https://d396qusza40orc.cloudfront.net/repdata%2Fpeer2_doc%2FNCDC%20Storm%20Events-FAQ%20Page.pdf','./NCDCStormEventFAQ.pdf',method='curl')
+```
+
+Read in data, with cache.
+```{r,echo=TRUE,cache=TRUE}
+data<-read.csv(datafile, header = TRUE )
+```
+
